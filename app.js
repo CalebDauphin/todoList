@@ -39,26 +39,27 @@ addBtn.addEventListener("click", function () {
 		const newEntry = document.getElementById("newEntry")
 		let newText
 		let oldText
-		if (newTask.value !== "") {
-			editBtn.addEventListener("click", function () {
-				newText = prompt("Edit you task")
-				if (newText.value !== "") {
-					newEntry.innerText = newText
-				}
-			})
-		}
-		if (newTask.value !== "") {
-			deleteBtn.addEventListener("click", function () {
-				oldText = prompt("Are you sure you want to delete this task?")
-				if (oldText.value !== "yes" || oldText.value !== "no") {
-					alert("Please enter a valid answer")
-				} else if (oldText.value !== "" && oldText.value === "yes") {
-					oldText.parentNode.remove()
-					console.log("deleted")
-				} else if (oldText.value !== "" && oldText.value === "no") {
-					console.log("saved")
-				}
-			})
-		}
+		deleteBtn.addEventListener("click", function () {
+			oldText = prompt("Are you sure you want to delete this task?")
+			if (oldText === "") {
+				alert("Enter yes or no")
+			} else if (oldText !== "yes" && oldText !== "no") {
+				alert("Enter valid input")
+			} else if (oldText === "no") {
+				alert("Task is saved")
+			} else {
+				deleteBtn.parentNode.remove()
+			}
+		})
+		editBtn.addEventListener("click", function () {
+			newText = prompt("Edit your task")
+			newEntry.innerText = newText
+			if (newText) {
+				newEntry.innerHTML += `<button id="edit"><i class="fa-solid fa-pen-to-square"></i></button> 
+				<button id="delete"><i class="fa-solid fa-trash-can"></i></button>`
+			} else {
+				alert("Task was not edited")
+			}
+		})
 	}
 })
