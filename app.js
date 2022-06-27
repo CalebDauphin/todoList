@@ -5,22 +5,16 @@ const deleteBtn = document.getElementById("deleteBtn")
 const editBtn = document.getElementById("editBtn")
 //const newEntry = document.getElementById("newEntry")
 
-const createTask = task => {
-	const listItem = document.createElement("li")
-	const label = document.createElement("label")
-	label.innerText = task
-	listItem.appendChild(label)
-	return listItem
-}
+const addElement = () => {
+	const li = document.createElement("li")
+	const newTaskAdded = newTask.value
+	const newText = document.createTextNode(newTaskAdded)
+	li.appendChild(newText)
 
-const addTask = () => {
-	const listItem = createTask(newTask.value)
-	taskAdded.appendChild(listItem)
+	if (newTaskAdded === "") {
+		alert("Enter a task!")
+	} else {
+		taskAdded.appendChild(li)
+	}
 	newTask.value = ""
-	//bindIncompleteItems(listItem, completeTask)
 }
-
-createTask()
-addTask()
-
-addBtn.addEventListener("click", addTask)
