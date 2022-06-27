@@ -1,65 +1,26 @@
 const newTask = document.getElementById("newTask")
-const tasksAdded = document.getElementById("tasksAdded")
+const taskAdded = document.getElementById("taskAdded")
 const addBtn = document.getElementById("addBtn")
+const deleteBtn = document.getElementById("deleteBtn")
+const editBtn = document.getElementById("editBtn")
+//const newEntry = document.getElementById("newEntry")
 
-// Step 1
-//create a conditional to see if input is empty or not when addBtn is clicked by using add event listener
-// if input is empty add a warning message
-// if an input is added push it into tasksAdded
-// Step 2
-// add delete btn using innerHTML and font awesome
-// select delete btn using getElementById
-// create a conditional to see if newTask and tasksAdded are empty or not
-// If they aren't empty use add event listener to listen for click when deleteBtn is clicked
-//then add a way to delete tasksAdded
-// Step 3
-// Add an edit button to edit individual tasks using innerHtml and font awesome
-// Select Edit btn using getElementById
-// newTask and tasksAdded shouldn't be empty
-// Add a conditional to edit task when there is a click event
-// If edit is clicked edit/remove current task else do nothing
-// When current task is edited and/or removed find a way to add new text
+const createTask = task => {
+	const listItem = document.createElement("li")
+	const label = document.createElement("label")
+	label.innerText = task
+	listItem.appendChild(label)
+	return listItem
+}
 
-// step 1
-addBtn.addEventListener("click", function () {
-	if (newTask.value === "") {
-		alert("Please enter a task")
-	} else {
-		// Step 2 - 3
-		//console.log("new task added")
-		tasksAdded.innerHTML += `
-		<div id="newEntry"></div>
-		<span>${newTask.value}</span>
-		<button id="edit"><i class="fa-solid fa-pen-to-square"></i></button> 
-		<button id="delete"><i class="fa-solid fa-trash-can"></i></button>
-		`
+const addTask = () => {
+	const listItem = createTask(newTask.value)
+	taskAdded.appendChild(listItem)
+	newTask.value = ""
+	//bindIncompleteItems(listItem, completeTask)
+}
 
-		const deleteBtn = document.getElementById("delete")
-		const editBtn = document.getElementById("edit")
-		const newEntry = document.getElementById("newEntry")
-		let newText
-		let oldText
-		deleteBtn.addEventListener("click", function () {
-			oldText = prompt("Are you sure you want to delete this task?")
-			if (oldText === "") {
-				alert("Enter yes or no")
-			} else if (oldText !== "yes" && oldText !== "no") {
-				alert("Enter valid input")
-			} else if (oldText === "no") {
-				alert("Task is saved")
-			} else {
-				deleteBtn.parentNode.remove()
-			}
-		})
-		editBtn.addEventListener("click", function () {
-			newText = prompt("Edit your task")
-			newEntry.innerText = newText
-			if (newText) {
-				newEntry.innerHTML += `<button id="edit"><i class="fa-solid fa-pen-to-square"></i></button> 
-				<button id="delete"><i class="fa-solid fa-trash-can"></i></button>`
-			} else {
-				alert("Task was not edited")
-			}
-		})
-	}
-})
+createTask()
+addTask()
+
+addBtn.addEventListener("click", addTask)
